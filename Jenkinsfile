@@ -1,0 +1,122 @@
+// node {
+//     def app
+
+// }
+
+pipeline{
+    // agent{
+    //     label "node"
+    // }
+    agent any
+
+    environment{
+        // Add global environment here
+        STAGE_1 = "Clone Repo"
+        STAGE_2 = "Build Image"
+        STAGE_3 = "Test Image"
+        STAGE_4 = "Push Image"
+        DOCKER_IMAGE_TAG = "libintomkk/bookmytable-fe-image:${BUILD_NUMBER}"
+    }
+
+    stages{
+        stage("${STAGE_1}"){
+
+            environment {
+                // Add environment specific to the stage
+
+            }
+            steps{
+                echo "This is ${STAGE_1}"
+                echo "Cloning the Repository"
+            }
+            steps{
+                // Checkout code from a Git repository
+                // git branch: 'main', credentialsId: '', url: ''
+                checkout scm
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+        stage("${STAGE_2}"){
+            steps{
+                echo "Building the Image"
+                // app = docker.build("libintomkk/bookmytable-fe-image")
+                script{
+                    docker.build "${DOCKER_IMAGE_TAG}"
+                }
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+        stage("${STAGE_3}"){
+            steps{
+                echo "Testing the image"
+                app.inside {
+                    sh 'echo "Test passed"'
+                }
+
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+        stage("${STAGE_4}"){
+            steps{
+                echo "Pushing image to docker hub"
+                script{
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-libin') {
+                        docker.image("${DOCKER_IMAGE_TAG}").push()
+                    }                    
+                }           
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+    }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
