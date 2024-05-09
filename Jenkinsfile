@@ -21,10 +21,11 @@ pipeline{
     stages{
         stage("Clone Repo"){
             steps{
+                // Step 1
                 echo "This is ${STAGE_1}"
                 echo "Cloning the Repository"
-            }
-            steps{
+
+                // Step 2
                 // Checkout code from a Git repository
                 // git branch: 'main', credentialsId: '', url: ''
                 checkout scm
