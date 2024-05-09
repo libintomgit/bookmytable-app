@@ -19,12 +19,7 @@ pipeline{
     }
 
     stages{
-        stage("${STAGE_1}"){
-
-            environment {
-                // Add environment specific to the stage
-
-            }
+        stage("Clone Repo"){
             steps{
                 echo "This is ${STAGE_1}"
                 echo "Cloning the Repository"
@@ -46,7 +41,7 @@ pipeline{
                 }
             }
         }
-        stage("${STAGE_2}"){
+        stage("Build Image"){
             steps{
                 echo "Building the Image"
                 // app = docker.build("libintomkk/bookmytable-fe-image")
@@ -66,12 +61,12 @@ pipeline{
                 }
             }
         }
-        stage("${STAGE_3}"){
+        stage("Test Image"){
             steps{
                 echo "Testing the image"
-                app.inside {
-                    sh 'echo "Test passed"'
-                }
+                // app.inside {
+                //     sh 'echo "Test passed"'
+                // }
 
             }
             post{
@@ -86,7 +81,7 @@ pipeline{
                 }
             }
         }
-        stage("${STAGE_4}"){
+        stage("Push Image"){
             steps{
                 echo "Pushing image to docker hub"
                 script{
