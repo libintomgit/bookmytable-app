@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary" data-bs-theme="dark">
+    <div style="float: left;" class="container-fluid">
+      <a class="navbar-brand" href="/">Book My Table</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div style="margin-right: 40px;" class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+
+          {% if False %}
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginmodal" href="#">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signupmodal" href="#">Signup</a>
+          </li>
+          {% else%}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/owner/1">Owner</a>
+          </li>
+          {% endif%}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/nutrition">Nutrition</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#supportmodal" href="#">Support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalTitle">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action= "/signin" method='post'>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter the registered username">
+            </div>
+            <div class="form-group">
+              <label for="pass">Password </label>
+              <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter the password ">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="signupmodal" class="modal fade" tabindex="-1" aria-labelledby="signupmodal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signupModalTitle" >Signup</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action= "/signup" method='post'>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input required type="text" class="form-control" id="username" name="username" placeholder="Enter a username">
+            </div>
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input required type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input required type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input required type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+              <label for="email">Phone Number</label>
+              <input required type="text" class="form-control" id="pnumber" name="pnumber" placeholder="0891234567">
+            </div>
+            <div class="form-group">
+              <label for="pass1">Choose a password</label>
+              <input required type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password">
+            </div>
+            <div class="form-group">
+              <label for="pass2">Confirm Password</label>
+              <input required type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="modal fade" id="supportmodal" tabindex="-1" aria-labelledby="supportModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="supportModalTitle">Support</h3><br>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <a class= "bg-dark">Sending API to Ticket Service hosted by Shalini</a>
+        <div class="modal-body">
+          <form action= "/support" method='post'>
+            <div class="form-group my-2">
+              <label for="email">Email address</label>
+              <input required type="email" class="form-control" id="email" name="email" placeholder="something @example.com" required>
+            </div>
+            <div class="form-group my-2">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="Enter a title for your isseue." required>
+            </div>
+            <div class="form-group my-2">
+              <label for="title">Problem Content</label>
+              <textarea class="form-control" id="content" name="content" rows="3" placeholder="Write more about your issue." required></textarea>
+            </div>
+            <!--<div class="form-group">-->
+            <!--  <label for="title">Priority</label>-->
+            <!--  <input type="text" class="form-control" id="category" name="category" placeholder="Example: Software issue, booking issue.">-->
+            <!--</div>-->
+            <div class="form-group my-3">
+              <select class="form-control" name="category" id="category" required>
+                  <option>Priority</option>
+                  <option>LOWPRIORITY</option>
+                  <option>MEDIUMPRIORITY</option>
+                  <option>HIGHPRIORITY</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

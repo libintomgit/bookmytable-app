@@ -1,0 +1,6 @@
+total 25
+drwxrwxr-x 4 libintom libintom 4096 Feb 24 15:22 ./
+drwxrwxr-x 6 libintom libintom 4096 Feb 24 11:22 ../
+drwxrwxr-x 2 libintom libintom 4096 Feb 24 11:20 docker/
+-rw-rw-r-- 1 libintom libintom    0 Feb 24 15:24 exmap.txt
+drwxrwxr-x 8 libintom libintom 4096 Feb 24 15:16 fapi_bkend/

@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  bookmytable:
+    build: 
+      context: ./bookmytable
+      dockerfile: Dockerfile
+    image: bookmytable:1.0.0
+    

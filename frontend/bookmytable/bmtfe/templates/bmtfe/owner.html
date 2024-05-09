@@ -1,0 +1,67 @@
+{% extends 'bmtfe/base.html' %}
+{% block title%} Owner {% endblock title%}
+
+{% block body %}
+{% include 'bmtfe/navbar.html' %}
+{% load static %}
+
+<div class="container-fluid" style="background-color:" >
+    <div class="container my-3 text-justify text-center p-3 mb-2 bg-info text-white">
+        <h1>Welcome Back{{user.fullname}}</h1>
+        <p>Find the bookings below</p>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="container alert alert-warning alert-dismissible fade show" role="alert">
+        <a class="text-justify text-center">{{ message }}</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if bookings %}
+    <div class="container border my-3">
+    <div class="row">
+    <h4 class="card-title my-2">Total bookings : {{bookings|length}}</h4>
+    </div>
+    </div>
+    {%for booking in bookings %}
+    <div class="container border my-3">
+        <div class="row">
+            {% comment %} <div class="col">
+                <img src="{% static 'bmtfe/images/testimg.png' %}" class="card-img-top img-thumbnail rounded" style="" alt="...">
+            </div> {% endcomment %}
+            <div class="col-9 d-flex flex-column">
+                <h4 class="card-title my-2">Booking ID : {{booking.id}}</h4>
+                <h4 class="card-title my-2">Booking Date : {{booking.booking_date}}</h4>
+                <h4 class="card-title my-2">Booking Time :{{booking.booking_time}}</h4>
+                <h5 class="card-title my-2">Customer Name: {{booking.name}}</h5>
+                <h5 class="card-title my-2">Customer Phone Number: {{booking.phone_number}}</h5>
+                {% comment %} <p class="card-text" style="margin-top: 25px; padding-right: 175px;">{{restr.description|slice:"0:200"|capfirst}} ...</p> {% endcomment %}
+                <div class="align-self-end" >
+                    <a onclick="window.location.href='/bookingcomplete/{{booking.id}}'" class="btn btn-outline-warning btn-sm" style="margin-top: 30px;">Complete</a>
+                    <a onclick="window.location.href='/bookingdelete/{{booking.id}}'" class="btn btn-outline-warning btn-sm" style="margin-top: 30px;">Delete</a>
+                    {% comment %} href="/knowmore"  {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    {% else %}
+    <div class="container-xxl border my-3">
+        <div class="row">
+            <div class="col">
+            <div class="col-9 d-flex flex-column">
+                <h4 class="card-title my-2">No Bookings available</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>    
+
+
+
+
+
+
+{% endblock body %}

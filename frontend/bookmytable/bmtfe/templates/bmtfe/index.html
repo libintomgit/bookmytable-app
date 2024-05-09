@@ -1,0 +1,41 @@
+{% extends 'bmtfe/base.html' %}
+{% block title%} Home {% endblock title%}
+
+{% block body %}
+{% include 'bmtfe/navbar.html' %}
+{% load static %}
+{% for message in messages %}
+<div class="container alert text-bg-info text-white p-3 alert-dismissible fade show my-4" role="alert">
+    <h5 class="text-justify text-center">{{message|title}}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<div class="container-fluid" style="background-color:">
+    <div class="container my-3 text-justify text-center p-3 mb-2 bg-info text-white">
+        <h1>Welcome to Book My Table</h1>
+        <p>Book your restaurants from the list below.</p>
+    </div>
+    {%for restr in restrs %}
+    <div class="container-xxl border my-3">
+        <div class="row">
+            <div class="col">
+                
+                <img src="{{s3_image}}" class="card-img-top img-thumbnail rounded" style="" alt="...">
+                <!--<img src="{% static 'bmtfe/images/testimg.png' %}" class="card-img-top img-thumbnail rounded" style="" alt="...">-->
+            </div>
+            <div class="col-9 d-flex flex-column">
+                <h5 class="card-title my-2">{{restr.title|upper}}</h5>
+                <p class="card-text" style="margin-top: 25px; padding-right: 175px;">{{restr.description|slice:"0:200"|capfirst}} ...</p>
+                <div class="align-self-end" >
+                    <!--<a href="/foodreview" target="_blank" class="btn btn-outline-info btn-sm" style="margin-top: 30px;">Food Review</a>-->
+                    <a onclick="window.location.href='/knowmore/{{restr.id}}'" class="btn btn-outline-warning btn-sm" style="margin-top: 30px;">Know More</a>
+                    {% comment %} href="/knowmore"  {% endcomment %}
+                    <a href="/booking/{{restr.id}}" class="btn btn-primary bg-info " style="margin-top: 30px;">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+    {%endfor%}
+</div>    
+
+{% endblock body%}
