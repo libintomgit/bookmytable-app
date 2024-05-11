@@ -1,8 +1,3 @@
-// node {
-//     def app
-
-// }
-
 pipeline{
     // agent{
     //     label "node"
@@ -22,7 +17,7 @@ pipeline{
         stage("Clone Repo"){
             steps{
                 // Step 1
-                echo "This is ${STAGE_1}"
+                echo "This is stage - ${STAGE_1}"
                 echo "Cloning the Repository"
 
                 // Step 2
@@ -89,6 +84,24 @@ pipeline{
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-libin') {
                         docker.image("${DOCKER_IMAGE_TAG}").push()
                     }                    
+                }           
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+        stage("Trigger Manifestupdate"){
+            steps{
+                echo "triggering updatemanifestjob"
+                build job: 'bmt-fe-update-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
                 }           
             }
             post{
