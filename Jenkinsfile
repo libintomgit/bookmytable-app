@@ -57,7 +57,7 @@ pipeline{
         stage("Trigger Manifestupdate"){
             steps{
                 echo "triggering updatemanifestjob"
-                build job: 'bmt-fe-update-manifest', parameters: [string(name: 'DOCKERTAG', value: ${BUILD_NUMBER})]
+                build job: 'bmt-fe-update-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
             }           
         }
     }
