@@ -25,17 +25,6 @@ pipeline{
                 // git branch: 'main', credentialsId: '', url: ''
                 checkout scm
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
         }
         stage("Build Image"){
             steps{
@@ -43,17 +32,6 @@ pipeline{
                 // app = docker.build("libintomkk/bookmytable-fe-image")
                 script{
                     docker.build "${DOCKER_IMAGE_TAG}"
-                }
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
                 }
             }
         }
@@ -65,17 +43,6 @@ pipeline{
                 // }
 
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
         }
         stage("Push Image"){
             steps{
@@ -86,46 +53,13 @@ pipeline{
                     }                    
                 }           
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
         }
         stage("Trigger Manifestupdate"){
             steps{
                 echo "triggering updatemanifestjob"
                 build job: 'bmt-fe-update-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-                }           
-            }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
-        }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
+            }           
         }
     }
 }
+    
