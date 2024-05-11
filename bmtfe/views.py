@@ -25,7 +25,7 @@ def index(request):
 
         return render(request, 'bmtfe/index.html', paramas)
     except Exception as e:
-        paramas = {"response": {"message": "Exceptions while connecting to backend API Server",
+        paramas = {"response": {"message": "Exceptions while connecting to backend API Server- Contact libintomkk@gmail.com",
                    "error": e
                    }
                 }
