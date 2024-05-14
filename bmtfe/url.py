@@ -15,5 +15,6 @@ urlpatterns = [
     path('bookingcomplete/<int:booking_id>', views.bookingComplete, name='bookingcomplete'),
     path('bookingdelete/<int:booking_id>', views.bookingDelete, name='bookingdelete'),
     path('forms', views.formHandler, name='formhandler'),
+    path('metrics/', views.prometheus_metrics, name='prometheus_metrics'),
 ]
 
