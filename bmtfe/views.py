@@ -3,7 +3,7 @@ import requests
 from django.http import HttpResponse
 from django.contrib import messages
 import os
-from prometheus_client import Summary, CONTENT_TYPE_LATEST, generate_latest
+from prometheus_client import Summary, CONTENT_TYPE_LATEST, generate_latest, Counter
 
 
 # Create your views here.
@@ -17,9 +17,11 @@ nutrition_url = "https://nutrition-by-api-ninjas.p.rapidapi.com/v1/nutrition"
 
 # Get request to backend service to fetch all the restaurants
 REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
+http_requests_total = Counter('http_requests_total', 'Total number of HTTP requests by Libin' )
 
 @REQUEST_TIME.time()
 def index(request):
+    http_requests_total.inc()
     try:
         headers = {'Accept': 'application/json'}
         response = requests.get(f"{api_url}/restr", headers=headers)
