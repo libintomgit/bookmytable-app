@@ -5,7 +5,6 @@ from django.contrib import messages
 import os
 from prometheus_client import Summary, CONTENT_TYPE_LATEST, generate_latest, Counter
 
-
 # Create your views here.
 # api_url = "http://bmt-backend-env-1.eba-9vhdbybw.us-east-1.elasticbeanstalk.com"
 
@@ -188,6 +187,7 @@ def bookingDelete(request, booking_id):
 # Used POST method to send GET request to thirdpart API for NUTRITION details 
 # with quetyparameter. Which will render the response when the page request.
 def handleNutrition(request):
+    http_requests_total.inc()
     if request.method == 'POST':
         querystring = {"query":request.POST['search']}
         headers = {

@@ -18,5 +18,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bmtfe.url')),
-    path('/', include('bmtfe.url'))
+    path('/', include('bmtfe.url')),
+    path('', include('django_prometheus.urls')),
 ]
